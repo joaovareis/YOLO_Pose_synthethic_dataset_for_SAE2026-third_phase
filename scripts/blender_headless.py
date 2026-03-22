@@ -222,6 +222,15 @@ def generate_txt(bbox, ept_1, ept_2, ept_3, ept_4, filepath_txt):
         else:
             f.write(linha)
 
+def set_obj_visibility(obj, visible):
+
+    obj.hide_render = not visible
+    obj.hide_viewport = not visible
+
+    for child in obj.children:
+
+        set_obj_visibility(child, visible)
+
 for i in range (START_ID, END_ID + 1):
     
     file_id = f"{i:04d}"
@@ -229,44 +238,47 @@ for i in range (START_ID, END_ID + 1):
     filepath_img = os.path.join(OUTPUT_DIR_IMG, f"{file_id}.png")
     filepath_txt = os.path.join(OUTPUT_DIR_TXT, f"{file_id}.txt")
 
-    nao_e_lixo = random.random() > 0.2
+    esta_presente = random.random() > 0.20
 
-    if nao_e_lixo:
-    
+    set_obj_visibility(man_obj, esta_presente)
+
+    dg = bpy.context.evaluated_depsgraph_get()
+    dg.update()
+
+    if esta_presente:
+
         position_camera(cam_obj)
-    
+        
         position_manometer(man_obj, cam_obj, scene)
-    
+        
         assure_camera_direction(man_obj, cam_obj)
-    
+        
         position_lights(light_obj_1, light_obj_2)
-    
+        
         position_needle(agulha_obj)
-    
+        
         randomize_floor_texture(piso_obj, INPUT_DIR_TEXT)
 
+        dg.update()
         scene.render.filepath = filepath_img
-
         bpy.ops.render.render(write_still=True)
 
         generate_txt(lista_cantos, 'empty_centro', 'empty_ponta', 'empty_20', 'empty_80', filepath_txt)
-    
-    else: 
 
-        man_obj.hide_render = True
-        man_obj.hide_viewport = True
+    else:
 
         position_camera(cam_obj)
-
         position_lights(light_obj_1, light_obj_2)
-
         randomize_floor_texture(piso_obj, INPUT_DIR_TEXT)
-
+        
+        dg.update()
+        
         scene.render.filepath = filepath_img
-
         bpy.ops.render.render(write_still=True)
 
         with open(filepath_txt, 'w') as f:
-            pass # Não escreve nada
+            f.write("")
+    
+
 
 
