@@ -21,7 +21,7 @@ Para rodar o script no terminal, basta executar o seguinte comando dentro da pas
 ```shell
 blender.exe -b "caminho\para\manometro.blend" --python "caminho\para\blender_headless.py"
 ```
-Caso rode em uma máquina Linux, apenas basta remover o .exe e escrever o caminho utilizando "/" e não "\", sem necessidade de estar no diretório do executável do Blender. Além disso tem que garantir permissão ao script Python:
+Caso rode em uma máquina Linux, apenas basta remover o .exe e escrever o caminho utilizando "```/```" e não "```\```", sem necessidade de estar no diretório do executável do Blender. Além disso tem que garantir permissão ao script Python:
 
 ```shell
 chmod +x /caminho/para/o/script
