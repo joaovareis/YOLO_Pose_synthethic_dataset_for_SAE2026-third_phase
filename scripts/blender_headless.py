@@ -202,16 +202,15 @@ def get_keypoint(empty_name):
     
         return obj_x, obj_y, v
     
-def generate_txt(bbox, ept_1, ept_2, ept_3, ept_4, filepath_txt):
+def generate_txt(bbox, ept_1, ept_2, ept_3, filepath_txt):
 
     bbox_x, bbox_y, bbox_w, bbox_h = get_bbox(bbox)
     
     o1_x, o1_y, o1_v = get_keypoint(ept_1)
     o2_x, o2_y, o2_v = get_keypoint(ept_2)
     o3_x, o3_y, o3_v = get_keypoint(ept_3)
-    o4_x, o4_y, o4_v = get_keypoint(ept_4)
     
-    linha = f"0 {bbox_x:.6f} {bbox_y:.6f} {bbox_w:.6f} {bbox_h:.6f} {o1_x:.6f} {o1_y:.6f} {o1_v} {o2_x:.6f} {o2_y:.6f} {o2_v} {o3_x:.6f} {o3_y:.6f} {o3_v} {o4_x:.6f} {o4_y:.6f} {o4_v}"
+    linha = f"0 {bbox_x:.6f} {bbox_y:.6f} {bbox_w:.6f} {bbox_h:.6f} {o1_x:.6f} {o1_y:.6f} {o1_v} {o2_x:.6f} {o2_y:.6f} {o2_v} {o3_x:.6f} {o3_y:.6f} {o3_v}"
     
     with open(filepath_txt, 'w') as f:
         
@@ -263,7 +262,7 @@ for i in range (START_ID, END_ID + 1):
         scene.render.filepath = filepath_img
         bpy.ops.render.render(write_still=True)
 
-        generate_txt(lista_cantos, 'empty_centro', 'empty_ponta', 'empty_20', 'empty_80', filepath_txt)
+        generate_txt(lista_cantos, 'empty_base', 'empty_centro', 'empty_ponta', filepath_txt)
 
     else:
 
