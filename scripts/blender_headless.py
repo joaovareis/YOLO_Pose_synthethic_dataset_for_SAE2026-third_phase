@@ -47,9 +47,9 @@ lista_cantos = ['bot_l_empty',
 
 def position_camera(camera_obj):
     
-    cz = random.uniform(0.6, 1)
+    cz = random.uniform(0.5, 1.5)
     
-    phi = math.radians(random.uniform(0, 55))
+    phi = math.radians(random.uniform(0, 35))
     theta = random.uniform(0, 2 * math.pi)
     r_xy = cz * math.tan(phi)
     
@@ -76,8 +76,8 @@ def position_manometer(manometer_obj, camera_obj, scenery):
     
     while tentativa < 100:
         
-        manometer_obj.location.x = random.uniform(-1, 1)
-        manometer_obj.location.y = random.uniform(-1, 1)
+        manometer_obj.location.x = random.uniform(-0.8, 0.8)
+        manometer_obj.location.y = random.uniform(-0.8, 0.8)
         manometer_obj.location.z = 0.001
         
         dg = bpy.context.evaluated_depsgraph_get()
@@ -262,7 +262,7 @@ for i in range (START_ID, END_ID + 1):
         scene.render.filepath = filepath_img
         bpy.ops.render.render(write_still=True)
 
-        generate_txt(lista_cantos, 'empty_base', 'empty_centro', 'empty_ponta', filepath_txt)
+        generate_txt(lista_cantos, 'empty_ponta', 'empty_centro', 'empty_base', filepath_txt)
 
     else:
 
@@ -277,7 +277,3 @@ for i in range (START_ID, END_ID + 1):
 
         with open(filepath_txt, 'w') as f:
             f.write("")
-    
-
-
-
